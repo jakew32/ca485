@@ -19,4 +19,4 @@ class SubEvent(models.Model):
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
 
     def __unicode__(self):
-        return "%s, a subevent of %s, is on %s at %s for %s minutes" % (self.name, self.event_id, self.event_date, self.time_start, self.duration)
+        return "%s, a subevent of %s is at %s for %s minutes" % (self.name, self.event_id, self.time_start, self.duration)
