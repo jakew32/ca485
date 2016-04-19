@@ -12,7 +12,19 @@
 {% if subevent_list %}
     <ul>
     {% for subevent in subevent_list %}
-        <li>{{ subevent.name }} - {{ subevent.time_start }} for {{ subevent.duration }} minutes</li>
+        <li>{{ subevent.name }} - {{ subevent.time_start }} for {{ subevent.duration }} minutes
+        {%  if subevent.assignee != "x" %}
+             , assigned to {{ subevent.assignee }}</li>
+            {% else %}
+               <form action="/assign/" method="post">
+                {% csrf_token %}
+                <label for="name">Assign to: </label><input type="text" name="assignee" />
+                <input type="hidden" value="{{ event.pk }}" name="event" />
+                    <input type="hidden" value="{{ subevent.pk }}" name="subevent" />
+                <input type="submit" value="Vote" />
+                </form>
+                </li>
+        {% endif %}
     {% endfor %}
     </ul>
 {% else %}

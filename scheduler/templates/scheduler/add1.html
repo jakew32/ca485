@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Add Event Flow Step 1</title>
+</head>
+<body>
+
+<h1>Add an Event</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'scheduler:add' %}" method="post">
+{% csrf_token %}
+<label for="name">Name: </label><input type="text" name="name" />
+<label for="name">Name: </label><input type="text" name="name" />
+
+<input type="submit" value="Vote" />
+</form>
+
+</body>
+</html>

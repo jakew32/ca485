@@ -17,6 +17,7 @@ class SubEvent(models.Model):
     duration = models.IntegerField('number of minutes for the subevent slot')
     description = models.TextField()
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
+    assignee = models.CharField(max_length=150, default='x')
 
     def __unicode__(self):
         return "%s, a subevent of %s is at %s for %s minutes" % (self.name, self.event_id, self.time_start, self.duration)
