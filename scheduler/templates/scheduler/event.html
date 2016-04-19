@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{ event.name }}</title>
+</head>
+<body>
+
+<h1>{{ event.name }}</h1>
+<p>{{ event.description }}</p>
+
+{% if subevent_list %}
+    <ul>
+    {% for subevent in subevent_list %}
+        <li>{{ subevent.name }} - {{ subevent.time_start }} for {{ subevent.duration }} minutes</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No subevents are available.</p>
+{% endif %}
+
+</body>
+</html>

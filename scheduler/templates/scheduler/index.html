@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Event Scheduler Page</title>
+</head>
+<body>
+
+<h1>Events</h1>
+
+{% if latest_event_list %}
+    <ul>
+    {% for event in latest_event_list %}
+        <li><a href="/{{ event.id }}/">{{ event.name }} - {{  event.event_date }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No events are available.</p>
+{% endif %}
+
+</body>
+</html>
