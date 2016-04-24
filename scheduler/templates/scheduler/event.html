@@ -1,3 +1,5 @@
+{% load static from staticfiles %}
+
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -30,6 +32,8 @@
 {% else %}
     <p>No subevents are available.</p>
 {% endif %}
+
+<img src="{% static "scheduler/catpic.jpg" %}" alt="cat pic" />
 
 </body>
 </html>
