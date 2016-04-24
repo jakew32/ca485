@@ -1,39 +1,50 @@
-{% load static from staticfiles %}
-
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>{{ event.name }}</title>
-</head>
-<body>
-
-<h1>{{ event.name }}</h1>
-<p>{{ event.description }}</p>
-
-{% if subevent_list %}
-    <ul>
-    {% for subevent in subevent_list %}
-        <li>{{ subevent.name }} - {{ subevent.time_start }} for {{ subevent.duration }} minutes
-        {%  if subevent.assignee != "x" %}
-             , assigned to {{ subevent.assignee }}</li>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title>{{ event.name }}</title>
+	</head>
+	<body>
+		
+		<h1><a href="/">CA485 Project - Event details</a></h1>
+		<h1>{{ event.name }}</h1>
+		<p>{{ event.description }}</p><p>{{ event.event_date }}</p>
+		{% if subevent_list %}
+		<ul>
+			{% for subevent in subevent_list %}
+			<li>{{ subevent.name }} - {{ subevent.time_start }} for {{ subevent.duration }} minutes
+				{%  if subevent.assignee != "x" %}
+			, assigned to {{ subevent.assignee }}</li>
             {% else %}
-               <form action="/assign/" method="post">
+			<form action="/assign/" method="post">
                 {% csrf_token %}
                 <label for="name">Assign to: </label><input type="text" name="assignee" />
                 <input type="hidden" value="{{ event.pk }}" name="event" />
-                    <input type="hidden" value="{{ subevent.pk }}" name="subevent" />
+				<input type="hidden" value="{{ subevent.pk }}" name="subevent" />
                 <input type="submit" value="Vote" />
-                </form>
-                </li>
+			</form>
+		</li>
         {% endif %}
-    {% endfor %}
-    </ul>
-{% else %}
+		{% endfor %}
+	</ul>
+	{% else %}
     <p>No subevents are available.</p>
-{% endif %}
+	{% endif %}
+	<h3><a href="/"><< Go back to the main page</a></h3>
+<table border="0" cellpadding="0" cellspacing="0" class="month">
+	<tr><th colspan="7" class="month"></th></tr>
+	<tr><th class="mon"></th><th class="mon">{{ event.event_date }}</th></tr>
+	{% for i in range %}
+		<tr><th class="mon">{% if i > 12 %}{{ i|add:"-12" }}pm
+							{% else %} {{ i }}am
+							{% endif %}</th><th>{% for subevent in subevent_list %}
+											{% if subevent.time_start.hour == i %}
+												{{ subevent.name }} 
+											{% endif %}
+		{% endfor %}</th></tr>
+	{% endfor %}
+</table>
 
-<img src="{% static "scheduler/catpic.jpg" %}" alt="cat pic" />
 
 </body>
 </html>

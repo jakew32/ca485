@@ -5,9 +5,8 @@
     <title>Event Scheduler Page</title>
 </head>
 <body>
-
-<h1>Events</h1>
-
+<h1>CA485 Project - Main page</h1>
+<h1>All events</h1>
 {% if latest_event_list %}
     <ul>
     {% for event in latest_event_list %}
@@ -17,6 +16,12 @@
 {% else %}
     <p>No events are available.</p>
 {% endif %}
+
+<h1>Calendar</h1>
+
+<div id="calendar" width="75%">
+  {{ calendar }}
+</div>
 
 </body>
 </html>
