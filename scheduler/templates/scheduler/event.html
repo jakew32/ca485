@@ -9,9 +9,9 @@
         <link href="{% static "scheduler/css/bootstrap.min.css" %}" rel="stylesheet">
 	</head>
 	<body>
-		
-		<h1><a href="/">CA485 Project - Event details</a></h1>
-		<h1>{{ event.name }}</h1>
+		<div class="container">
+		<h1><a href="/">CA485 Project <small>Event details</small></a></h1>
+		<h2>{{ event.name }}</h2>
 		<p>{{ event.description }}</p><p>{{ event.event_date }}</p>
 		{% if subevent_list %}
 		<ul>
@@ -20,12 +20,15 @@
 				{%  if subevent.assignee != "x" %}
 			, assigned to {{ subevent.assignee }}</li>
             {% else %}
-			<form action="/assign/" method="post">
+			<form action="/assign/" method="post" class="form-inline">
                 {% csrf_token %}
+                <div class="form-group">
                 <label for="name">Assign to: </label><input type="text" name="assignee" />
+                </div>
                 <input type="hidden" value="{{ event.pk }}" name="event" />
 				<input type="hidden" value="{{ subevent.pk }}" name="subevent" />
-                <input type="submit" value="Vote" />
+                <input type="submit" value="Assign" class="btn btn-primary"/>
+
 			</form>
 		</li>
         {% endif %}
@@ -35,7 +38,7 @@
     <p>No subevents are available.</p>
 	{% endif %}
 	<h3><a href="/"><< Go back to the main page</a></h3>
-<table border="0" cellpadding="0" cellspacing="0" class="month">
+<table border="0" cellpadding="0" cellspacing="0" class="month table table-bordered table-striped table-hover">
 	<tr><th colspan="7" class="month"></th></tr>
 	<tr><th class="mon"></th><th class="mon">{{ event.event_date }}</th></tr>
 	{% for i in range %}
@@ -43,13 +46,13 @@
 							{% else %} {{ i }}am
 							{% endif %}</th><th>{% for subevent in subevent_list %}
 											{% if subevent.time_start.hour == i %}
-												{{ subevent.name }} 
+												{{ subevent.time_start }} - {{ subevent.name }} <br/>
 											{% endif %}
 		{% endfor %}</th></tr>
 	{% endfor %}
 </table>
 
-
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="{% static "scheduler/js/bootstrap.min.js" %}"></script>
 </body>

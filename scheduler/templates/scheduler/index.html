@@ -8,7 +8,8 @@
     <link href="{% static "scheduler/css/bootstrap.min.css" %}" rel="stylesheet">
 </head>
 <body>
-<h1>CA485 Project - Main page</h1>
+<div class="container">
+<h1>CA485 Project</h1>
 <h1>All events</h1>
 {% if latest_event_list %}
     <ul>
@@ -22,11 +23,13 @@
 
 <h1>Calendar</h1>
 
-<div id="calendar" width="75%">
+<div id="calendar table" width="75%">
   {{ calendar }}
+</div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="{% static "scheduler/js/bootstrap.min.js" %}"></script>
+<script>$(".month").addClass("table table-bordered");</script>
 </body>
 </html>
