@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from scheduler.models import Event, SubEvent
 from django.utils.safestring import mark_safe
-from scheduler.calendar import EventCalendar
+from scheduler.cal import EventCalendar
 import datetime
 
 # Create your views here.
@@ -10,7 +10,7 @@ import datetime
 def index(request):
     latest_event_list = Event.objects.order_by('event_date')
     cal = EventCalendar(latest_event_list).formatmonth(2016, 4)
-    context = {'latest_event_list': latest_event_list,'calendar': mark_safe(cal)}
+    context = {'latest_event_list': latest_event_list, 'calendar': mark_safe(cal)}
     return render(request, 'scheduler/index.html', context)
 
 def event(request, event_id):
